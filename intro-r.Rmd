@@ -71,6 +71,10 @@ Next, you need to load the packages in your working environment. We do this with
 the `library` function. Note that you only need to **install** packages once, but
 you need to **load** them each time you relaunch RStudio.
 
+```{r first-code-chunk, options}
+4+12
+``` 
+
 ```{r load-packages, message = FALSE}
 library(dplyr)
 library(ggplot2)
@@ -269,7 +273,8 @@ of the price of diamonds by their weight measured in carats with the command
 
 ```{r plot-price-vs-carat}
 ggplot(data = diamonds, aes(x = carat, y = price)) +
-  geom_point()
+  geom_point()+geom_smooth()
+
 ```
 
 Before we review the code for this plot, let's summarize the trends we see in the 
@@ -402,7 +407,10 @@ Now, with your partner, play with mutate and piping and create a plot of interes
 
 ```{r plot-of-something-interesting}
 # type your code for the Exercise here, and Knit
-
+ggplot(data=diamonds, aes(x=carat, y=price, color=color))+
+  geom_line()+
+  geom_point()+
+  facet_wrap(~clarity)
 
 
 ```
@@ -444,7 +452,9 @@ Let's get the means of the stone prices.
 
 ```{r try-averaging-diamond-prices}
 diamonds %>%
+  group_by(color)%>%
   summarise(mean = mean(price), sd = sd(price), median = median(price))
+
 ```
 
 ## Resources for learning R and working in RStudio
